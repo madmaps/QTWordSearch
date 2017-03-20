@@ -12,44 +12,85 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    newGameDialog = new NewGame(this);
+    newGameDialog->show();
     random_device rd;
-    myWordSearch = new QTWordSearch(15,15,rd());
-    myWordSearch->setWindow(this);
-    addWordFile(*myWordSearch,"words.txt",rd(),100);
-    myWordSearch->complete();
-    myWordSearch->print();
+    myWordSearch = 0;
+    windowUpdater = 0;
+    //myWordSearch = new QTWordSearch(15,15,rd());
+    //myWordSearch->setWindow(this);
+    //addWordFile(*myWordSearch,"words.txt",rd(),100);
+    //myWordSearch->complete();
+    //myWordSearch->print();
     windowUpdater = new TimeThread();
     windowUpdater->setWindow(this);
     windowUpdater->start();
+    connect(newGameDialog,SIGNAL(startTheGame()),this,SLOT(startGame()));
+
 }
 
 MainWindow::~MainWindow()
 {
-    windowUpdater->stop();
+    if(windowUpdater!=0)
+    {
+        windowUpdater->stop();
+        delete windowUpdater;
+    }
+    if(myWordSearch!=0)
+    {
+        delete myWordSearch;
+    }
+    delete newGameDialog;
     delete ui;
+}
+
+void MainWindow::startGame()
+{
+    if(myWordSearch!=0)
+    {
+        delete myWordSearch;
+    }
+    random_device rd;
+    myWordSearch = new QTWordSearch(newGameDialog->getHeight(),newGameDialog->getWidth(),rd());
+    myWordSearch->setWindow(this);
+    addWordFile(*myWordSearch,newGameDialog->getFileName().toStdString().c_str(),rd(),newGameDialog->getMaxWords());
+    myWordSearch->complete();
+    newGameDialog->hide();
 }
 
 void MainWindow::paintEvent(QPaintEvent *event)
 {
-    myWordSearch->draw();
+    if(myWordSearch!=0)
+    {
+        myWordSearch->draw();
+    }
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
-    if(event->button()==Qt::LeftButton)
+    if(myWordSearch!=0)
     {
-        myWordSearch->mouseDown(event->x(),event->y());
+        if(event->button()==Qt::LeftButton)
+        {
+            myWordSearch->mouseDown(event->x(),event->y());
+        }
     }
 }
 
 void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
-    myWordSearch->mouseMove(event->x(),event->y());
+    if(myWordSearch!=0)
+    {
+         myWordSearch->mouseMove(event->x(),event->y());
+    }
 }
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 {
-    myWordSearch->mouseRelease();
+    if(myWordSearch!=0)
+    {
+         myWordSearch->mouseRelease();
+    }
 }
 
 bool addWordFile(WordSearch& inWordSearch,const string inFile,const int inSeed,const int maxWords)
@@ -84,4 +125,9 @@ bool addWordFile(WordSearch& inWordSearch,const string inFile,const int inSeed,c
 
     }
     return true;
+}
+
+void MainWindow::on_actionNew_Game_triggered()
+{
+    newGameDialog->show();
 }

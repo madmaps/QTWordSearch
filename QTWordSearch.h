@@ -10,6 +10,7 @@ class QTWordSearch : public WordSearch
 {
 	public:
 	QTWordSearch(const int inSizeY,const int inSizeX,const int inSeed);
+    ~QTWordSearch();
     void setWindow(QMainWindow* inWindow);
 	virtual void draw();
     void mouseDown(const int inLocX,const int inLocY);

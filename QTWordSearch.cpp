@@ -11,6 +11,11 @@ QTWordSearch::QTWordSearch(const int inSizeY,const int inSizeX,const int inSeed)
     start = std::chrono::system_clock::now();
 }
 
+QTWordSearch::~QTWordSearch()
+{
+
+}
+
 void QTWordSearch::draw()
 {
     QPainter thePainter(theWindow);

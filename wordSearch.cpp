@@ -28,11 +28,11 @@ WordSearch::~WordSearch()
 	{
 		delete[] charArray[i];
 	}
-	for(unsigned int i = 0;i < unFoundWords.size() - 1;i++)
+    for(unsigned int i = 0;i < unFoundWords.size();i++)
 	{
 		delete unFoundWords[i];
 	}
-	for(unsigned int i = 0;i < foundWords.size() - 1;i++)
+    for(unsigned int i = 0;i < foundWords.size();i++)
 	{
 		delete foundWords[i];
 	}

@@ -18,11 +18,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     wordSearch.cpp \
     QTWordSearch.cpp \
-    TimeThread.cpp
+    TimeThread.cpp \
+    newgame.cpp
 
 HEADERS  += mainwindow.h \
     wordSearch.h \
     QTWordSearch.h \
-    TimeThread.h
+    TimeThread.h \
+    newgame.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    newgame.ui

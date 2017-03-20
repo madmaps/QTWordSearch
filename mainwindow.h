@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "TimeThread.h"
 #include "QTWordSearch.h"
+#include "newgame.h"
 
 namespace Ui {
 class MainWindow;
@@ -17,6 +18,11 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private slots:
+    void startGame();
+
+    void on_actionNew_Game_triggered();
+
 protected:
     void paintEvent(QPaintEvent* event);
     void mousePressEvent(QMouseEvent* event);
@@ -27,6 +33,8 @@ private:
     Ui::MainWindow *ui;
     TimeThread* windowUpdater;
     QTWordSearch* myWordSearch;
+    NewGame* newGameDialog;
+
 
 };
 
