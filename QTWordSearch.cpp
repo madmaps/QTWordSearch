@@ -75,7 +75,7 @@ void QTWordSearch::draw()
     std::ostringstream remaining;
     remaining << "Remaining: " << unFoundWords.size();
     string remainString = remaining.str();
-    thePainter.drawText(300,90+boxSize*sizeY,QString(remainString.c_str()));
+    thePainter.drawText(boxSize*sizeX-128,90+boxSize*sizeY,QString(remainString.c_str()));
     if(isMouseDown)
     {
         if(mouseDownX > 40 && mouseDownX < 40+sizeX*boxSize && mouseDownY > 40 && mouseDownY < 40+sizeY*boxSize)

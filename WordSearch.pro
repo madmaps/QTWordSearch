@@ -19,13 +19,18 @@ SOURCES += main.cpp\
     wordSearch.cpp \
     QTWordSearch.cpp \
     TimeThread.cpp \
-    newgame.cpp
+    newgame.cpp \
+    highscores.cpp \
+    Scores.cpp
 
 HEADERS  += mainwindow.h \
     wordSearch.h \
     QTWordSearch.h \
     TimeThread.h \
-    newgame.h
+    newgame.h \
+    highscores.h \
+    Scores.h
 
 FORMS    += mainwindow.ui \
-    newgame.ui
+    newgame.ui \
+    highscores.ui

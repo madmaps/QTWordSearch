@@ -1,5 +1,7 @@
 #include "newgame.h"
 #include "ui_newgame.h"
+#include <sstream>
+#include <string>
 
 NewGame::NewGame(QWidget *parent) :
     QDialog(parent),
@@ -37,6 +39,18 @@ int NewGame::getHeight()const
 bool NewGame::getHints()const
 {
     return ui->HintsCheckBox->isChecked();
+}
+
+void NewGame::setSeed(const unsigned long inSeed)
+{
+    std::ostringstream oss;
+    oss << inSeed;
+    ui->SeedText->setText(QString(oss.str().c_str()));
+}
+
+unsigned long NewGame::getSeed()const
+{
+    return ui->SeedText->text().toLong();
 }
 
 NewGame::~NewGame()

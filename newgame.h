@@ -20,6 +20,8 @@ public:
     int getWidth()const;
     int getHeight()const;
     bool getHints()const;
+    void setSeed(const unsigned long inSeed);
+    unsigned long getSeed()const;
 
 signals:
     void startTheGame();
@@ -29,6 +31,7 @@ private slots:
 
 private:
     Ui::NewGame *ui;
+
 };
 
 #endif // NEWGAME_H

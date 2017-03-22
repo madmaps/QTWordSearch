@@ -5,23 +5,18 @@
 #include <random>
 #include <fstream>
 
-bool addWordFile(WordSearch& inWordSearch,const string inFile,const int inSeed,const int maxWords = 50);
+bool addWordFile(WordSearch& inWordSearch, const string inFile, const long inSeed, const int maxWords = 50);
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    random_device rd;
     ui->setupUi(this);
     newGameDialog = new NewGame(this);
+    newGameDialog->setSeed(rd());
     newGameDialog->show();
-    random_device rd;
     myWordSearch = 0;
-    windowUpdater = 0;
-    //myWordSearch = new QTWordSearch(15,15,rd());
-    //myWordSearch->setWindow(this);
-    //addWordFile(*myWordSearch,"words.txt",rd(),100);
-    //myWordSearch->complete();
-    //myWordSearch->print();
     windowUpdater = new TimeThread();
     windowUpdater->setWindow(this);
     windowUpdater->start();
@@ -34,6 +29,7 @@ MainWindow::~MainWindow()
     if(windowUpdater!=0)
     {
         windowUpdater->stop();
+        windowUpdater->wait();
         delete windowUpdater;
     }
     if(myWordSearch!=0)
@@ -50,10 +46,9 @@ void MainWindow::startGame()
     {
         delete myWordSearch;
     }
-    random_device rd;
-    myWordSearch = new QTWordSearch(newGameDialog->getHeight(),newGameDialog->getWidth(),rd());
+    myWordSearch = new QTWordSearch(newGameDialog->getHeight(),newGameDialog->getWidth(),newGameDialog->getSeed());
     myWordSearch->setWindow(this);
-    addWordFile(*myWordSearch,newGameDialog->getFileName().toStdString().c_str(),rd(),newGameDialog->getMaxWords());
+    addWordFile(*myWordSearch,newGameDialog->getFileName().toStdString().c_str(),newGameDialog->getSeed(),newGameDialog->getMaxWords());
     myWordSearch->complete();
     newGameDialog->hide();
 }
@@ -93,7 +88,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
     }
 }
 
-bool addWordFile(WordSearch& inWordSearch,const string inFile,const int inSeed,const int maxWords)
+bool addWordFile(WordSearch& inWordSearch,const string inFile,const long inSeed,const int maxWords)
 {
     list<string> wordList;
     list<string>::iterator iter;
@@ -129,5 +124,7 @@ bool addWordFile(WordSearch& inWordSearch,const string inFile,const int inSeed,c
 
 void MainWindow::on_actionNew_Game_triggered()
 {
+    random_device rd;
+    newGameDialog->setSeed(rd());
     newGameDialog->show();
 }
