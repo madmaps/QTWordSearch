@@ -7,7 +7,7 @@ class TimeThread : public QThread
 {
     Q_OBJECT
 public:
-    explicit TimeThread(QObject* parent = 0);
+    explicit TimeThread(QObject* = 0);
     void setWindow(QMainWindow* inWindow);
     void stop();
     bool isRunning()const;

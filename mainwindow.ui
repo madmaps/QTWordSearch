@@ -28,6 +28,8 @@
      <string>File</string>
     </property>
     <addaction name="actionNew_Game"/>
+    <addaction name="actionHigh_Scores"/>
+    <addaction name="actionExit"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -43,6 +45,16 @@
   <action name="actionNew_Game">
    <property name="text">
     <string>New Game</string>
+   </property>
+  </action>
+  <action name="actionHigh_Scores">
+   <property name="text">
+    <string>High Scores</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
    </property>
   </action>
  </widget>

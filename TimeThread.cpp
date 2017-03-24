@@ -1,7 +1,7 @@
 #include "TimeThread.h"
 #include <unistd.h>
 
-TimeThread::TimeThread(QObject *parent)
+TimeThread::TimeThread(QObject*)
 {
     stopped = true;
 }

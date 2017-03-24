@@ -5,6 +5,7 @@
 #include "TimeThread.h"
 #include "QTWordSearch.h"
 #include "newgame.h"
+#include "highscores.h"
 
 namespace Ui {
 class MainWindow;
@@ -23,6 +24,10 @@ private slots:
 
     void on_actionNew_Game_triggered();
 
+    void on_actionHigh_Scores_triggered();
+
+    void on_actionExit_triggered();
+
 protected:
     void paintEvent(QPaintEvent* event);
     void mousePressEvent(QMouseEvent* event);
@@ -34,6 +39,8 @@ private:
     TimeThread* windowUpdater;
     QTWordSearch* myWordSearch;
     NewGame* newGameDialog;
+    HighScores* hiScores;
+
 
 
 };

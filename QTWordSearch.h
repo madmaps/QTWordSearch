@@ -16,6 +16,8 @@ class QTWordSearch : public WordSearch
     void mouseDown(const int inLocX,const int inLocY);
     void mouseMove(const int inLocX,const int inLocY);
     void mouseRelease();
+    std::chrono::duration<double> getTime()const;
+    bool gameOver()const;
 
 private:
     QMainWindow* theWindow;

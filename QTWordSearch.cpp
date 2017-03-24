@@ -45,13 +45,13 @@ void QTWordSearch::draw()
             thePainter.drawText(50+j*boxSize,60+i*boxSize,QString(charArray[i][j]));
         }
     }
-    for(int i = 0;i < unFoundWords.size();i++)
+    for(unsigned int i = 0;i < unFoundWords.size();i++)
     {
 
         thePainter.drawText(60+sizeX*boxSize,60+i*25,QString((*unFoundWords[i]).c_str()));
     }
 
-    for(int i = 0;i < highlights.size();i++)
+    for(unsigned int i = 0;i < highlights.size();i++)
     {
         theColor.setRgb(highlights[i].red,highlights[i].green,highlights[i].blue);
         theColor.setAlpha(64);
@@ -60,7 +60,10 @@ void QTWordSearch::draw()
         thePainter.setPen(thePen);
         thePainter.drawLine(highlights[i].startX,highlights[i].startY,highlights[i].endX,highlights[i].endY);
     }
-    end = std::chrono::system_clock::now();
+    if(unFoundWords.size()>0)
+    {
+        end = std::chrono::system_clock::now();
+    }
     std::chrono::duration<double> seconds = end - start;
     std::ostringstream strs;
     strs << "Time: " << (double)floor(seconds.count()) << "" << "s";
@@ -209,7 +212,7 @@ void QTWordSearch::mouseRelease()
             {
                 random_device rd;
                 default_random_engine generator(rd());
-                uniform_int_distribution<int> distribution(100,175);
+                uniform_int_distribution<int> distribution(60,200);
                 int randomRed = distribution(generator);
                 int randomGreen = distribution(generator);
                 int randomBlue = distribution(generator);
@@ -236,4 +239,14 @@ void QTWordSearch::mouseRelease()
 void QTWordSearch::setWindow(QMainWindow* inWindow)
 {
     theWindow = inWindow;
+}
+
+bool QTWordSearch::gameOver()const
+{
+    return(unFoundWords.size()==0);
+}
+
+std::chrono::duration<double> QTWordSearch::getTime()const
+{
+    return end-start;
 }

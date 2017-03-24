@@ -11,7 +11,7 @@ Score::Score(const string &inName, const std::chrono::time_point<chrono::_V2::sy
     tm* dateFormat = localtime(&theDate);
     month = dateFormat->tm_mon;
     day = dateFormat->tm_mday;
-    year = dateFormat->tm_year;
+    year = dateFormat->tm_year+1900;
     time = (int)floor(inTime.count());
 }
 
@@ -26,7 +26,7 @@ Score::Score(const string &inName, const int inMonth, const int inDay, const int
 string Score::getScore()const
 {
     ostringstream oss;
-    oss << month << "/" << day << "/" << year << "   " << name << "    " << time;
+    oss << month << "/" << day << "/" << year << "   " << name << "         " << time << "s";
 
     return oss.str();
 }
@@ -37,3 +37,5 @@ string Score::toFile()const
     return oss.str();
 }
 
+Score::~Score()
+{}

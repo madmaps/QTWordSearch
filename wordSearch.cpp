@@ -66,7 +66,7 @@ bool WordSearch::addWord(const string& inWord)
 			}
 		}
 	}
-    if(returnScore >= 1 || (returnScore ==0 && unFoundWords.size()==0))
+    if(returnScore >= 0 || (returnScore ==0 && unFoundWords.size()==0))
 	{
 		default_random_engine generator(seed);
 		uniform_int_distribution<int> distribution(0,bestResults->size()-1);
@@ -100,14 +100,14 @@ int WordSearch::canWordGoHere(const string& inWord,const int inOrientation,const
 		{
 			if(inWord[i] == charArray[yCurrent][xCurrent] && score !=-1)
 			{
-                if(inOrientation == 1 || inOrientation ==3 || inOrientation == 5 || inOrientation == 7)
-                {
-                    score+=2;
-                }
-                else
-                {
+                //if(inOrientation == 1 || inOrientation ==3 || inOrientation == 5 || inOrientation == 7)
+                //{
+                //    score+=2;
+                //}
+                //else
+                //{
                     score++;
-                }
+                //}
 			}
 			else
 			{
@@ -148,7 +148,7 @@ void WordSearch::putWordHere(const string& inWord,const int inOrientation,const 
 	}
 }
 
-bool WordSearch::checkForMatch(const int inOrientation,const int inLocY,const int inLocX,const int inLength)
+bool WordSearch::checkForMatch(const int inOrientation,const int inLocY,const int inLocX,const unsigned int inLength)
 {
 	int xCounter = 0, yCounter = 0;
 
@@ -171,7 +171,7 @@ bool WordSearch::checkForMatch(const int inOrientation,const int inLocY,const in
         {
             found = false;
         }
-		for(int i = 0;i < inLength;i++)
+        for(unsigned int i = 0;i < inLength;i++)
 		{
 			if(charArray[yCurrent][xCurrent] != (*unFoundWords[j])[i])
 			{

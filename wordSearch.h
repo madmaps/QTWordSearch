@@ -8,9 +8,9 @@ class WordSearch
 {
 public:
 	WordSearch(const int inSizeY,const int inSizeX,const int inSeed);
-	~WordSearch();
+    virtual ~WordSearch();
 	bool addWord(const string& inWord);
-	bool checkForMatch(const int inOrientation,const int inLocY,const int inLocX,const int inLength);
+    bool checkForMatch(const int inOrientation, const int inLocY, const int inLocX, const unsigned int inLength);
 	void complete();
     virtual void draw() = 0;
 	void print()const;

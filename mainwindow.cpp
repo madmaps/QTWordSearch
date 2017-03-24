@@ -5,6 +5,7 @@
 #include <random>
 #include <fstream>
 
+
 bool addWordFile(WordSearch& inWordSearch, const string inFile, const long inSeed, const int maxWords = 50);
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -13,6 +14,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     random_device rd;
     ui->setupUi(this);
+    hiScores = new HighScores(this);
+    hiScores->loadScores(".hiScores.txt");
+
+    hiScores->hide();
     newGameDialog = new NewGame(this);
     newGameDialog->setSeed(rd());
     newGameDialog->show();
@@ -26,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    hiScores->saveScores(".hiScores.txt");
     if(windowUpdater!=0)
     {
         windowUpdater->stop();
@@ -36,6 +42,7 @@ MainWindow::~MainWindow()
     {
         delete myWordSearch;
     }
+    delete hiScores;
     delete newGameDialog;
     delete ui;
 }
@@ -53,7 +60,7 @@ void MainWindow::startGame()
     newGameDialog->hide();
 }
 
-void MainWindow::paintEvent(QPaintEvent *event)
+void MainWindow::paintEvent(QPaintEvent*)
 {
     if(myWordSearch!=0)
     {
@@ -80,11 +87,17 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
-void MainWindow::mouseReleaseEvent(QMouseEvent *event)
+void MainWindow::mouseReleaseEvent(QMouseEvent *)
 {
     if(myWordSearch!=0)
     {
          myWordSearch->mouseRelease();
+         if(myWordSearch->gameOver())
+         {
+             chrono::time_point<std::chrono::system_clock> tempDate = chrono::system_clock::now();
+             hiScores->gameCompleted(tempDate,myWordSearch->getTime());
+             hiScores->show();
+         }
     }
 }
 
@@ -127,4 +140,14 @@ void MainWindow::on_actionNew_Game_triggered()
     random_device rd;
     newGameDialog->setSeed(rd());
     newGameDialog->show();
+}
+
+void MainWindow::on_actionHigh_Scores_triggered()
+{
+    hiScores->show();
+}
+
+void MainWindow::on_actionExit_triggered()
+{
+    this->close();
 }
