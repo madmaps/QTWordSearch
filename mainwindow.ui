@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Wordsearch</string>
   </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
@@ -27,8 +27,16 @@
     <property name="title">
      <string>File</string>
     </property>
+    <widget class="QMenu" name="menuHigh_Scores">
+     <property name="title">
+      <string>High Scores</string>
+     </property>
+     <addaction name="actionEasy"/>
+     <addaction name="actionMedium"/>
+     <addaction name="actionHard"/>
+    </widget>
     <addaction name="actionNew_Game"/>
-    <addaction name="actionHigh_Scores"/>
+    <addaction name="menuHigh_Scores"/>
     <addaction name="actionExit"/>
    </widget>
    <addaction name="menuFile"/>
@@ -47,14 +55,24 @@
     <string>New Game</string>
    </property>
   </action>
-  <action name="actionHigh_Scores">
-   <property name="text">
-    <string>High Scores</string>
-   </property>
-  </action>
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionEasy">
+   <property name="text">
+    <string>Easy</string>
+   </property>
+  </action>
+  <action name="actionMedium">
+   <property name="text">
+    <string>Medium</string>
+   </property>
+  </action>
+  <action name="actionHard">
+   <property name="text">
+    <string>Hard</string>
    </property>
   </action>
  </widget>

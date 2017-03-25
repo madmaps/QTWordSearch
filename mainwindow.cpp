@@ -14,10 +14,18 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     random_device rd;
     ui->setupUi(this);
-    hiScores = new HighScores(this);
-    hiScores->loadScores(".hiScores.txt");
-
-    hiScores->hide();
+    easyHiScores = new HighScores(this);
+    easyHiScores->loadScores(".easyHiScores.txt");
+    easyHiScores->setWindowTitle("Easy High Scores");
+    easyHiScores->hide();
+    mediumHiScores = new HighScores(this);
+    mediumHiScores->loadScores(".mediumHiScores.txt");
+    mediumHiScores->setWindowTitle("Medium High Scores");
+    mediumHiScores->hide();
+    hardHiScores = new HighScores(this);
+    hardHiScores->loadScores(".hardHiScores.txt");
+    hardHiScores->setWindowTitle("Hard High Scores");
+    hardHiScores->hide();
     newGameDialog = new NewGame(this);
     newGameDialog->setSeed(rd());
     newGameDialog->show();
@@ -31,7 +39,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    hiScores->saveScores(".hiScores.txt");
+    easyHiScores->saveScores(".easyHiScores.txt");
+    mediumHiScores->saveScores(".mediumHiScores.txt");
+    hardHiScores->saveScores(".hardHiScores.txt");
     if(windowUpdater!=0)
     {
         windowUpdater->stop();
@@ -42,7 +52,9 @@ MainWindow::~MainWindow()
     {
         delete myWordSearch;
     }
-    delete hiScores;
+    delete easyHiScores;
+    delete mediumHiScores;
+    delete hardHiScores;
     delete newGameDialog;
     delete ui;
 }
@@ -54,6 +66,7 @@ void MainWindow::startGame()
         delete myWordSearch;
     }
     myWordSearch = new QTWordSearch(newGameDialog->getHeight(),newGameDialog->getWidth(),newGameDialog->getSeed(),newGameDialog->getHints());
+    difficulty = newGameDialog->getDifficutly();
     myWordSearch->setWindow(this);
     addWordFile(*myWordSearch,newGameDialog->getFileName().toStdString().c_str(),newGameDialog->getSeed(),newGameDialog->getMaxWords());
     myWordSearch->complete();
@@ -95,8 +108,23 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *)
          if(myWordSearch->gameOver())
          {
              chrono::time_point<std::chrono::system_clock> tempDate = chrono::system_clock::now();
-             hiScores->gameCompleted(tempDate,myWordSearch->getTime());
-             hiScores->show();
+             switch(difficulty)
+             {
+             case 0:
+                 easyHiScores->gameCompleted(tempDate,myWordSearch->getTime());
+                 easyHiScores->show();
+                 break;
+             case 1:
+                 mediumHiScores->gameCompleted(tempDate,myWordSearch->getTime());
+                 mediumHiScores->show();
+                 break;
+             case 2:
+                 hardHiScores->gameCompleted(tempDate,myWordSearch->getTime());
+                 hardHiScores->show();
+                 break;
+             default:
+                 break;
+             }
          }
     }
 }
@@ -142,12 +170,29 @@ void MainWindow::on_actionNew_Game_triggered()
     newGameDialog->show();
 }
 
-void MainWindow::on_actionHigh_Scores_triggered()
-{
-    hiScores->show();
-}
+
 
 void MainWindow::on_actionExit_triggered()
 {
     this->close();
+}
+
+void MainWindow::on_actionHigh_Scores_triggered()
+{
+
+}
+
+void MainWindow::on_actionEasy_triggered()
+{
+    easyHiScores->show();
+}
+
+void MainWindow::on_actionMedium_triggered()
+{
+    mediumHiScores->show();
+}
+
+void MainWindow::on_actionHard_triggered()
+{
+    hardHiScores->show();
 }

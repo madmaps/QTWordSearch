@@ -28,6 +28,12 @@ private slots:
 
     void on_actionExit_triggered();
 
+    void on_actionEasy_triggered();
+
+    void on_actionMedium_triggered();
+
+    void on_actionHard_triggered();
+
 protected:
     void paintEvent(QPaintEvent* event);
     void mousePressEvent(QMouseEvent* event);
@@ -39,7 +45,10 @@ private:
     TimeThread* windowUpdater;
     QTWordSearch* myWordSearch;
     NewGame* newGameDialog;
-    HighScores* hiScores;
+    HighScores* easyHiScores;
+    HighScores* mediumHiScores;
+    HighScores* hardHiScores;
+    int difficulty;
 
 
 

@@ -22,6 +22,7 @@ public:
     bool getHints()const;
     void setSeed(const unsigned long inSeed);
     unsigned long getSeed()const;
+    int getDifficutly()const;
 
 signals:
     void startTheGame();
@@ -29,8 +30,18 @@ private slots:
     void sendStart();
 
 
+    void on_radioButton_clicked();
+
+    void on_radioButton_2_clicked();
+
+    void on_radioButton_3_clicked();
+
+    void on_radioButton_4_clicked();
+
 private:
     Ui::NewGame *ui;
+
+    int difficulty;
 
 };
 
