@@ -35,6 +35,7 @@ void HighScores::on_HighScoreOkButton_clicked()
     ui->scoreName->setText(QString(""));
 
     topScores.push_back(tempScore);
+    sort(topScores.begin(),topScores.end());
 
     ui->listWidget->clear();
     for(Score insert:topScores)

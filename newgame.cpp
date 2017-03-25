@@ -2,6 +2,7 @@
 #include "ui_newgame.h"
 #include <sstream>
 #include <string>
+#include <QFileDialog>
 
 NewGame::NewGame(QWidget *parent) :
     QDialog(parent),
@@ -113,4 +114,11 @@ void NewGame::on_radioButton_4_clicked()
     ui->HeightSpinBox->setEnabled(true);
     ui->WidthSpinBox->setEnabled(true);
     ui->MaxWordsSpinBox->setEnabled(true);
+}
+
+void NewGame::on_FileBrowserButton_clicked()
+{
+    QString wordSearchFile = QFileDialog::getOpenFileName(this,tr("Open File"),"");
+    ui->fileNameEdit->setText(wordSearchFile);
+    //imageFileName = QFileDialog::getOpenFileName(this, tr("Open File"),"/home/matt/Desktop",tr("Images (*.jpg *.bmp)"));
 }

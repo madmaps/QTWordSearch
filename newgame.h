@@ -38,6 +38,8 @@ private slots:
 
     void on_radioButton_4_clicked();
 
+    void on_FileBrowserButton_clicked();
+
 private:
     Ui::NewGame *ui;
 

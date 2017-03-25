@@ -23,6 +23,11 @@ Score::Score(const string &inName, const int inMonth, const int inDay, const int
     time = inSeconds;
 }
 
+bool Score::operator <(const Score& rhs)const
+{
+    return (time<=rhs.time);
+}
+
 string Score::getScore()const
 {
     ostringstream oss;

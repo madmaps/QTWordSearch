@@ -177,10 +177,10 @@ void MainWindow::on_actionExit_triggered()
     this->close();
 }
 
-void MainWindow::on_actionHigh_Scores_triggered()
+/*void MainWindow::on_actionHigh_Scores_triggered()
 {
 
-}
+}*/
 
 void MainWindow::on_actionEasy_triggered()
 {
