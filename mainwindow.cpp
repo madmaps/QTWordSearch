@@ -53,7 +53,7 @@ void MainWindow::startGame()
     {
         delete myWordSearch;
     }
-    myWordSearch = new QTWordSearch(newGameDialog->getHeight(),newGameDialog->getWidth(),newGameDialog->getSeed());
+    myWordSearch = new QTWordSearch(newGameDialog->getHeight(),newGameDialog->getWidth(),newGameDialog->getSeed(),newGameDialog->getHints());
     myWordSearch->setWindow(this);
     addWordFile(*myWordSearch,newGameDialog->getFileName().toStdString().c_str(),newGameDialog->getSeed(),newGameDialog->getMaxWords());
     myWordSearch->complete();

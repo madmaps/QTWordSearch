@@ -9,7 +9,7 @@
 class QTWordSearch : public WordSearch
 {
 	public:
-	QTWordSearch(const int inSizeY,const int inSizeX,const int inSeed);
+    QTWordSearch(const int inSizeY, const int inSizeX, const int inSeed, const bool &inHints);
     ~QTWordSearch();
     void setWindow(QMainWindow* inWindow);
 	virtual void draw();
@@ -27,6 +27,7 @@ private:
     int mouseDownY;
     int mouseMoveX;
     int mouseMoveY;
+    bool hints;
 
 
     struct wordHighlight

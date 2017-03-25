@@ -4,11 +4,12 @@
 #include "QMainWindow"
 using namespace std;
 
-QTWordSearch::QTWordSearch(const int inSizeY,const int inSizeX,const int inSeed) : WordSearch(inSizeY,inSizeX,inSeed)
+QTWordSearch::QTWordSearch(const int inSizeY,const int inSizeX,const int inSeed,const bool& inHints) : WordSearch(inSizeY,inSizeX,inSeed)
 {
     boxSize = 30;
     isMouseDown = false;
     start = std::chrono::system_clock::now();
+    hints = inHints;
 }
 
 QTWordSearch::~QTWordSearch()
@@ -45,10 +46,13 @@ void QTWordSearch::draw()
             thePainter.drawText(50+j*boxSize,60+i*boxSize,QString(charArray[i][j]));
         }
     }
-    for(unsigned int i = 0;i < unFoundWords.size();i++)
+    if(hints)
     {
+        for(unsigned int i = 0;i < unFoundWords.size();i++)
+        {
 
-        thePainter.drawText(60+sizeX*boxSize,60+i*25,QString((*unFoundWords[i]).c_str()));
+            thePainter.drawText(60+sizeX*boxSize,60+i*25,QString((*unFoundWords[i]).c_str()));
+        }
     }
 
     for(unsigned int i = 0;i < highlights.size();i++)
