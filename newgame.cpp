@@ -118,7 +118,7 @@ void NewGame::on_radioButton_4_clicked()
 
 void NewGame::on_FileBrowserButton_clicked()
 {
-    QString wordSearchFile = QFileDialog::getOpenFileName(this,tr("Open File"),"");
+    QString wordSearchFile = QFileDialog::getOpenFileName(this,tr("Open File"),"",tr("Text Files (*.txt)"));
     ui->fileNameEdit->setText(wordSearchFile);
     //imageFileName = QFileDialog::getOpenFileName(this, tr("Open File"),"/home/matt/Desktop",tr("Images (*.jpg *.bmp)"));
 }
